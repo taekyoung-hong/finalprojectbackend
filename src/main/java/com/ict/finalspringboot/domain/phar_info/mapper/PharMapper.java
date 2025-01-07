@@ -16,7 +16,7 @@ public interface PharMapper {
     int pharinfoDelete(String phar_idx);
 
     
-    pharVO getpharsById(String phar_idx);
+    pharVO getpharsDetail(String phar_idx);
 
     // 생성하기
     int pharinfoWrite(pharVO pvo);

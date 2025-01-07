@@ -1,4 +1,4 @@
-package com.ict.finalspringboot.domain.phar_info.controller;
+package com.ict.finalspringboot.domain.ad401.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/phar_info")
-public class PharController {
+@RequestMapping("/api/ad401")
+public class Ad401Controller {
 
     @Autowired
     private PharService pharService;
 
     @PostMapping("/write")
-    public DataVO getpharWrite(
+    public DataVO getAd401Write(
             @RequestBody pharVO pvo) {
 
         DataVO dataVO = new DataVO();
@@ -74,10 +74,11 @@ public class PharController {
     }
 
     // 상세보기
+
     @GetMapping("/detail/{phar_idx}")
     public DataVO getpharsDetail(@PathVariable("phar_idx") String phar_idx) {
         DataVO dataVO = new DataVO();
-        
+
         try {
             log.info("phar_idx : " + phar_idx);
             pharVO pvo = pharService.getpharsDetail(phar_idx);
