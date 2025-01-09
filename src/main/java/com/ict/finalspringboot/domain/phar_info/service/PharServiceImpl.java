@@ -16,21 +16,6 @@ public class PharServiceImpl implements PharService {
     private PharMapper pharMapper;
 
     @Override
-    public pharVO getpharsDetail(String phar_idx) {
-        pharVO list = pharMapper.getpharsDetail(phar_idx);
-        if (list == null) {
-            // null일 경우 빈 리스트로 초기화
-            System.out.println("데이터가 없습니다.");
-        }
-        return list;
-    }
-
-    @Override
-    public int pharinfoDelete(String phar_idx) {
-        return pharMapper.pharinfoDelete(phar_idx);
-    }
-
-    @Override
     public List<pharVO> pharinfoList() {
         List<pharVO> list = pharMapper.pharinfoList();
         if (list == null) {
@@ -41,15 +26,29 @@ public class PharServiceImpl implements PharService {
     }
 
     @Override
-    public int pharinfoUpdate(pharVO pvo) {
-
-        return pharMapper.pharinfoUpdate(pvo);
-    }
-
-    @Override
     public int pharinfoWrite(pharVO pvo) {
 
         return pharMapper.pharinfoWrite(pvo); // Mapper 호출
     }
 
+    @Override
+    public pharVO getpharsDetail(int phar_idx) {
+        pharVO list = pharMapper.getpharsDetail(phar_idx);
+        if (list == null) {
+            // null일 경우 빈 리스트로 초기화
+            System.out.println("데이터가 없습니다.");
+        }
+        return list;
+    }
+
+    @Override
+    public int pharinfoDelete(int phar_idx) {
+        return pharMapper.pharinfoDelete(phar_idx);
+    }
+
+    @Override
+    public int pharinfoUpdate(pharVO pvo) {
+
+        return pharMapper.pharinfoUpdate(pvo);
+    }
 }

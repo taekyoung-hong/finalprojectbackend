@@ -14,12 +14,12 @@ public interface PharService {
     int pharinfoUpdate(pharVO pvo);
 
     // 삭제하기
-    int pharinfoDelete(String phar_idx);
+    int pharinfoDelete(int phar_idx);
 
     // 생성하기
     int pharinfoWrite(pharVO pvo);
 
     // 상세보기
-    pharVO getpharsDetail(String phar_idx);
+    pharVO getpharsDetail(int phar_idx);
 
 }

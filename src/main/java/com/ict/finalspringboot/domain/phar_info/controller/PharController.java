@@ -25,6 +25,33 @@ public class PharController {
     @Autowired
     private PharService pharService;
 
+   
+    @GetMapping("/list")
+    public DataVO getpharList() {
+        DataVO dataVO = new DataVO();
+        try {
+            List<pharVO> list = pharService.pharinfoList();
+
+            log.info("data", list);
+            // 리스트가 null일 경우 빈 리스트로 초기화
+            if (list == null) {
+                list = new ArrayList<>(); // 빈 리스트로 초기화
+            }
+            dataVO.setSuccess(true);
+            dataVO.setMessage("약국 조회 성공");
+            dataVO.setData(list);
+
+        } catch (Exception e) {
+            dataVO.setSuccess(false);
+            dataVO.setMessage("약국 조회 실패");
+            e.getStackTrace();
+        }
+        
+        return dataVO;
+    }
+
+   
+   
     @PostMapping("/write")
     public DataVO getpharWrite(
             @RequestBody pharVO pvo) {
@@ -52,30 +79,10 @@ public class PharController {
         return dataVO;
     }
 
-    @GetMapping("/list")
-    public DataVO getpharList() {
-        DataVO dataVO = new DataVO();
-        try {
-            List<pharVO> list = pharService.pharinfoList();
-            // 리스트가 null일 경우 빈 리스트로 초기화
-            if (list == null) {
-                list = new ArrayList<>(); // 빈 리스트로 초기화
-            }
-            dataVO.setSuccess(true);
-            dataVO.setMessage("약국 조회 성공");
-            dataVO.setData(list);
-
-        } catch (Exception e) {
-            dataVO.setSuccess(false);
-            dataVO.setMessage("약국 조회 실패");
-            e.getStackTrace();
-        }
-        return dataVO;
-    }
-
+    
     // 상세보기
     @GetMapping("/detail/{phar_idx}")
-    public DataVO getpharsDetail(@PathVariable("phar_idx") String phar_idx) {
+    public DataVO getpharsDetail(@PathVariable("phar_idx") int phar_idx) {
         DataVO dataVO = new DataVO();
         
         try {
@@ -97,11 +104,10 @@ public class PharController {
     }
 
     @GetMapping("/delete/{phar_idx}")
-    public DataVO getpharDelete(@PathVariable String phar_idx) {
+    public DataVO getpharDelete(@PathVariable int phar_idx) {
         DataVO dataVO = new DataVO();
         try {
 
-            log.info(phar_idx);
 
             int result = pharService.pharinfoDelete(phar_idx);
             if (result == 0) {
@@ -120,7 +126,7 @@ public class PharController {
     }
 
     @PutMapping("/update/{phar_idx}")
-    public DataVO getpharUpdate(@PathVariable String phar_idx, @RequestBody pharVO pvo) {
+    public DataVO getpharUpdate(@PathVariable int phar_idx, @RequestBody pharVO pvo) {
         DataVO dataVO = new DataVO();
         try {
             // // 로그인 여부 확인
