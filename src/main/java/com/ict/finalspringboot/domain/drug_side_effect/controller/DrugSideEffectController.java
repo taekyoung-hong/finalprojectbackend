@@ -1,36 +1,36 @@
-package com.ict.finalspringboot.domain.phar_info.controller;
+package com.ict.finalspringboot.domain.drug_side_effect.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.ict.finalspringboot.domain.auth.vo.DataVO;
-import com.ict.finalspringboot.domain.phar_info.service.PharService;
-import com.ict.finalspringboot.domain.phar_info.vo.pharVO;
+import com.ict.finalspringboot.domain.drug_info.vo.DrugVO;
+import com.ict.finalspringboot.domain.drug_side_effect.service.DrugSideEffectService;
+import com.ict.finalspringboot.domain.drug_side_effect.vo.DSEVO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/phar_info")
-public class PharController {
+@RequestMapping("/api/drug_side_effect")
+public class DrugSideEffectController {
 
     @Autowired
-    private PharService pharService;
+    private DrugSideEffectService drugSideEffectService;
 
     @GetMapping("/list")
-    public DataVO getpharList() {
+    public DataVO dSEinfoList() {
         DataVO dataVO = new DataVO();
         try {
-            List<pharVO> list = pharService.pharinfoList();
+            List<DSEVO> list = drugSideEffectService.dSEinfoList();
 
             log.info("data", list);
             // 리스트가 null일 경우 빈 리스트로 초기화
@@ -51,14 +51,14 @@ public class PharController {
     }
 
     @PostMapping("/write")
-    public DataVO getpharWrite(
-            @RequestBody pharVO pvo) {
+    public DataVO getdrugWrite(
+            @RequestBody DSEVO dvo) {
 
         DataVO dataVO = new DataVO();
         try {
-            log.info("Received data: " + pvo.toString());
+            log.info("Received data: " + dvo.toString());
             // 약국 쓰기
-            int result = pharService.pharinfoWrite(pvo);
+            int result = drugSideEffectService.dSEinfoWrite(dvo);
 
             if (result == 0) {
                 dataVO.setSuccess(false);
@@ -70,7 +70,7 @@ public class PharController {
             dataVO.setMessage("약국 쓰기 성공");
 
         } catch (Exception e) {
-            log.error("Exception occurred while writing pharmacy", e); // 스택 트레이스 출력
+            log.error("Exception occurred while writing drugmacy", e); // 스택 트레이스 출력
             dataVO.setSuccess(false);
             dataVO.setMessage("약국 쓰기 오류 발생");
         }
@@ -78,21 +78,21 @@ public class PharController {
     }
 
     // 상세보기
-    @GetMapping("/detail/{phar_idx}")
-    public DataVO getpharsDetail(@PathVariable("phar_idx") int phar_idx) {
+    @GetMapping("/detail/{drug_side_effect_idx}")
+    public DataVO getdSEDetail(@PathVariable("drug_side_effect_idx") int drug_side_effect_idx) {
         DataVO dataVO = new DataVO();
 
         try {
-            log.info("phar_idx : " + phar_idx);
-            pharVO pvo = pharService.getpharsDetail(phar_idx);
-            if (pvo == null) {
+            log.info("drug_idx : " + drug_side_effect_idx);
+            DSEVO dvo = drugSideEffectService.getdSEDetail(drug_side_effect_idx);
+            if (dvo == null) {
                 dataVO.setSuccess(false);
                 dataVO.setMessage("약국 상세보기 실패");
                 return dataVO;
             }
             dataVO.setSuccess(true);
             dataVO.setMessage("약국 상세보기 성공");
-            dataVO.setData(pvo);
+            dataVO.setData(dvo);
         } catch (Exception e) {
             dataVO.setSuccess(false);
             dataVO.setMessage("약국 상세보기 실패");
@@ -100,13 +100,12 @@ public class PharController {
         return dataVO;
     }
 
-    @PostMapping("/delete/{phar_idx}")
-    public DataVO getpharDelete(@PathVariable("phar_idx") int phar_idx) {
-
+    @GetMapping("/delete/{drug_side_effect_idx}")
+    public DataVO getdrugDelete(@PathVariable("drug_side_effect_idx") int drug_side_effect_idx) {
         DataVO dataVO = new DataVO();
         try {
-            log.info("delete phar_dx", phar_idx);
-            int result = pharService.getpharDelete(phar_idx);
+
+            int result = drugSideEffectService.dSEinfoDelete(drug_side_effect_idx);
             if (result == 0) {
                 dataVO.setSuccess(false);
                 dataVO.setMessage("약국 삭제 실패");
@@ -123,12 +122,12 @@ public class PharController {
     }
 
     @PostMapping("/update")
-    public DataVO pharinfoUpdate(@RequestBody pharVO pvo) {
+    public DataVO druginfoUpdate(@RequestBody DSEVO dvo) {
         DataVO dataVO = new DataVO();
         try {
             log.info("null");
-            log.info("pvo : " + pvo);
-            int result = pharService.pharinfoUpdate(pvo);
+            log.info("dvo : " + dvo);
+            int result = drugSideEffectService.dSEinfoUpdate(dvo);
 
             if (result == 0) {
                 log.info("result=2");
@@ -146,29 +145,5 @@ public class PharController {
         }
         return dataVO;
     }
-
-    // @DeleteMapping("/delete/{phar_idx}")
-    // public DataVO pharinfoDelete(@PathVariable int phar_idx) {
-    // DataVO dataVO = new DataVO();
-    // try {
-    // log.info("Deleting pharmacy with ID: " + phar_idx);
-    // int result = pharService.pharinfoDelete(phar_idx);
-
-    // if (result == 0) {
-    // log.info("Deletion failed for ID: " + phar_idx);
-    // dataVO.setSuccess(false);
-    // dataVO.setMessage("약국 삭제 실패");
-    // return dataVO;
-    // }
-    // dataVO.setSuccess(true);
-    // dataVO.setMessage("약국 삭제 성공");
-
-    // } catch (Exception e) {
-    // log.error("Exception occurred while deleting pharmacy", e);
-    // dataVO.setSuccess(false);
-    // dataVO.setMessage("약국 삭제 중 오류 발생");
-    // }
-    // return dataVO;
-    // }
 
 }

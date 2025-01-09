@@ -28,7 +28,7 @@ spring:
     # http://localhost:8080/{파일명}
     web:
         resources:
-            static-locations: file:D:/upload/    
+            static-locations: file:C:/upload/    
             # static-locations: classpath:/static/  
 
 
@@ -37,7 +37,7 @@ spring:
 
 # 파일 업로드 기능에서 파일이 저장될 물리적 경로를 명시.              
 file:
-  upload-dir: D:/upload
+  upload-dir: C:/upload
 
 server:
   port: 8080            # 서버 포트

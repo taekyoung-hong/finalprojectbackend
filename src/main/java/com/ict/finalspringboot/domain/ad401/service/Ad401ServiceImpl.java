@@ -21,12 +21,12 @@ public class Ad401ServiceImpl implements Ad401Service {
     }
 
     @Override
-    public int getAd401Delete(Ad401VO avo) {
-        return ad401Mapper.getAd401Delete(avo);
+    public int getAd401Update(Ad401VO avo) {
+        return ad401Mapper.getAd401Update(avo);
     }
 
     @Override
-    public int getAd401Delete(String ad401_idx) {
+    public int getAd401Delete(int ad401_idx) {
         return ad401Mapper.getAd401Delete(ad401_idx);
     }
 
@@ -36,7 +36,7 @@ public class Ad401ServiceImpl implements Ad401Service {
     }
 
     @Override
-    public Ad401VO getAd401Idx(String ad401_idx) {
+    public Ad401VO getAd401Idx(int ad401_idx) {
         return ad401Mapper.getAd401Idx(ad401_idx);
     }
 

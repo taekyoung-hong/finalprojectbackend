@@ -14,7 +14,7 @@ public interface PharService {
     int pharinfoUpdate(pharVO pvo);
 
     // 삭제하기
-    int pharinfoDelete(int phar_idx);
+    int getpharDelete(int phar_idx);
 
     // 생성하기
     int pharinfoWrite(pharVO pvo);

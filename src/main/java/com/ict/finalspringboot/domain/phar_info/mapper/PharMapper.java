@@ -13,7 +13,7 @@ public interface PharMapper {
     int pharinfoUpdate(pharVO pvo);
 
     // 삭제하기
-    int pharinfoDelete(int phar_idx);
+    int getpharDelete(int phar_idx);
 
     
     pharVO getpharsDetail(int phar_idx);

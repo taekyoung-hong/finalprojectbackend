@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 반드시 mapper 위치로 설정해야 된다. -->
+<mapper namespace="com.ict.finalspringboot.domain.ad401.mapper.Ad401Mapper">
+
+
+    <insert id="getAd401Write" parameterType="com.ict.finalspringboot.domain.ad401.vo.Ad401VO">
+        INSERT INTO ad401_tbl ( ad401title, ad401content, ad401_subtitle1, ad401_subcontent1,
+        ad401_subtitle2, ad401_subcontent2, ad401_subtitle3, ad401_subcontent3 ) VALUES (
+        #{ad401title}, #{ad401content}, #{ad401_subtitle1}, #{ad401_subcontent1},
+        #{ad401_subtitle2}, #{ad401_subcontent2}, #{ad401_subtitle3}, #{ad401_subcontent3} ) </insert>
+
+</mapper> 

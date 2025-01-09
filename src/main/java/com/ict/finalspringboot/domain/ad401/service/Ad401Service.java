@@ -11,15 +11,15 @@ public interface Ad401Service {
     List<Ad401VO> ad401List();
 
     // 수정하기
-    int getAd401Delete(Ad401VO avo);
+    int getAd401Update(Ad401VO avo);
 
     // 삭제하기
-    int getAd401Delete(String ad401_idx);
+    int getAd401Delete(int ad401_idx);
 
     // 생성하기
     int getAd401Write(Ad401VO avo);
 
     // 상세보기
-    Ad401VO getAd401Idx(String ad401_idx);
+    Ad401VO getAd401Idx(int ad401_idx);
 
 }

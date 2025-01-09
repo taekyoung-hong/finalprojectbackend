@@ -1,10 +1,9 @@
-package com.ict.finalspringboot.domain.phar_info.controller;
+package com.ict.finalspringboot.domain.box_info.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,25 +11,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.ict.finalspringboot.domain.auth.vo.DataVO;
-import com.ict.finalspringboot.domain.phar_info.service.PharService;
+import com.ict.finalspringboot.domain.box_info.service.BoxService;
+import com.ict.finalspringboot.domain.box_info.vo.BoxVO;
 import com.ict.finalspringboot.domain.phar_info.vo.pharVO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/phar_info")
-public class PharController {
+@RequestMapping("/api/box_info")
+public class BoxController {
 
     @Autowired
-    private PharService pharService;
+    private BoxService boxService;
 
     @GetMapping("/list")
-    public DataVO getpharList() {
+    public DataVO BoxinfoList() {
         DataVO dataVO = new DataVO();
         try {
-            List<pharVO> list = pharService.pharinfoList();
+            List<BoxVO> list = boxService.BoxinfoList();
 
             log.info("data", list);
             // 리스트가 null일 경우 빈 리스트로 초기화
@@ -51,14 +52,14 @@ public class PharController {
     }
 
     @PostMapping("/write")
-    public DataVO getpharWrite(
-            @RequestBody pharVO pvo) {
+    public DataVO BoxinfoWrite(
+            @RequestBody BoxVO bvo) {
 
         DataVO dataVO = new DataVO();
         try {
-            log.info("Received data: " + pvo.toString());
+            log.info("Received data: " + bvo.toString());
             // 약국 쓰기
-            int result = pharService.pharinfoWrite(pvo);
+            int result = boxService.BoxinfoWrite(bvo);
 
             if (result == 0) {
                 dataVO.setSuccess(false);
@@ -78,21 +79,21 @@ public class PharController {
     }
 
     // 상세보기
-    @GetMapping("/detail/{phar_idx}")
-    public DataVO getpharsDetail(@PathVariable("phar_idx") int phar_idx) {
+    @GetMapping("/detail/{box_idx}")
+    public DataVO getpharsDetail(@PathVariable("box_idx") int box_idx) {
         DataVO dataVO = new DataVO();
 
         try {
-            log.info("phar_idx : " + phar_idx);
-            pharVO pvo = pharService.getpharsDetail(phar_idx);
-            if (pvo == null) {
+            log.info("box_idx : " + box_idx);
+            BoxVO bvo = boxService.getboxsDetail(box_idx);
+            if (bvo == null) {
                 dataVO.setSuccess(false);
                 dataVO.setMessage("약국 상세보기 실패");
                 return dataVO;
             }
             dataVO.setSuccess(true);
             dataVO.setMessage("약국 상세보기 성공");
-            dataVO.setData(pvo);
+            dataVO.setData(bvo);
         } catch (Exception e) {
             dataVO.setSuccess(false);
             dataVO.setMessage("약국 상세보기 실패");
@@ -100,13 +101,12 @@ public class PharController {
         return dataVO;
     }
 
-    @PostMapping("/delete/{phar_idx}")
-    public DataVO getpharDelete(@PathVariable("phar_idx") int phar_idx) {
-
+    @PostMapping("/delete/{box_idx}")
+    public DataVO BoxinfoDelete(@PathVariable("box_idx") int box_idx) {
         DataVO dataVO = new DataVO();
         try {
-            log.info("delete phar_dx", phar_idx);
-            int result = pharService.getpharDelete(phar_idx);
+
+            int result = boxService.BoxinfoDelete(box_idx);
             if (result == 0) {
                 dataVO.setSuccess(false);
                 dataVO.setMessage("약국 삭제 실패");
@@ -123,12 +123,12 @@ public class PharController {
     }
 
     @PostMapping("/update")
-    public DataVO pharinfoUpdate(@RequestBody pharVO pvo) {
+    public DataVO pharinfoUpdate(@RequestBody BoxVO bvo) {
         DataVO dataVO = new DataVO();
         try {
             log.info("null");
-            log.info("pvo : " + pvo);
-            int result = pharService.pharinfoUpdate(pvo);
+            log.info("pvo : " + bvo);
+            int result = boxService.BoxinfoUpdate(bvo);
 
             if (result == 0) {
                 log.info("result=2");
@@ -146,29 +146,5 @@ public class PharController {
         }
         return dataVO;
     }
-
-    // @DeleteMapping("/delete/{phar_idx}")
-    // public DataVO pharinfoDelete(@PathVariable int phar_idx) {
-    // DataVO dataVO = new DataVO();
-    // try {
-    // log.info("Deleting pharmacy with ID: " + phar_idx);
-    // int result = pharService.pharinfoDelete(phar_idx);
-
-    // if (result == 0) {
-    // log.info("Deletion failed for ID: " + phar_idx);
-    // dataVO.setSuccess(false);
-    // dataVO.setMessage("약국 삭제 실패");
-    // return dataVO;
-    // }
-    // dataVO.setSuccess(true);
-    // dataVO.setMessage("약국 삭제 성공");
-
-    // } catch (Exception e) {
-    // log.error("Exception occurred while deleting pharmacy", e);
-    // dataVO.setSuccess(false);
-    // dataVO.setMessage("약국 삭제 중 오류 발생");
-    // }
-    // return dataVO;
-    // }
 
 }

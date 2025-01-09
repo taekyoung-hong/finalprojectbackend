@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 반드시 mapper 위치로 설정해야 된다. -->
+<mapper namespace="com.ict.finalspringboot.domain.drug_side_effect.mapper.DSEMapper">
+
+	<select id="dSEinfoList" resultType="com.ict.finalspringboot.domain.drug_side_effect.vo.DSEVO"> select * from drug_side_effect order by drug_side_effect_idx asc </select>	
+	
+	<insert id="dSEinfoWrite" parameterType="DSEVO">
+	 insert into box_info (box_name, box_address,
+	box_long,box_lat) values(#{box_name},#{box_address},#{box_long},#{box_lat}) </insert>
+
+	<select id="getdSEDetail" parameterType="int" resultType="com.ict.finalspringboot.domain.box_info.vo.BoxVO"> select * from drug_side_effect where drug_side_effect_idx = #{drug_side_effect_idx} </select>
+	
+	<update id="dSEinfoUpdate" parameterType="DSEVO">
+    UPDATE box_info
+    SET 
+        box_name = #{box_name},
+        box_address = #{box_address},
+        box_lat = #{box_lat},
+        box_long = #{box_long}
+    WHERE box_idx = #{box_idx};
+</update>
+
+ <delete id="dSEinfoDelete" parameterType="int"> 
+    DELETE FROM drug_side_effect WHERE drug_side_effect_idx = #{drug_side_effect_idx} 
+    </delete>
+
+
+
+</mapper> 

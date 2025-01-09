@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ict.finalspringboot.domain.drug_info.mapper.DrugMapper">
+    <select id="druginfoList" resultType="com.ict.finalspringboot.domain.drug_info.vo.DrugVO">
+        select * from drug_info_tbl order by drung_info_idx asc </select>
+
+    <insert id="druginfoWrite" parameterType="DrugVO"> insert into drug_info_tbl (item_name, entp_name,
+        item_seq,chart,item_image,drug_shape,class_name, etc_otc_name )
+        values(#{item_name},#{entp_name},#{item_seq},#{chart},
+        #{item_image},#{drug_shape},#{class_name} ) </insert>
+
+    <select id="getdrugsDetail" parameterType="int"
+        resultType="com.ict.finalspringboot.domain.drug_info.vo.DrugVO"> select * from drug_info_tbl
+        where drug_info_idx = #{drug_info_idx} </select>
+
+    <update id="druginfoUpdate" parameterType="DrugVO"> UPDATE drug_info_tbl SET item_name =
+        #{item_name}, entp_name = #{entp_name}, item_seq = #{item_seq}, chart = #{chart}, item_image
+        = #{item_image}, drug_shape = #{drug_shape}, class_name = #{class_name}, etc_otc_name =
+        #{etc_otc_name} WHERE drug_idx = #{drug_idx}; </update>
+
+    <delete id="druginfoDelete" parameterType="int"> DELETE FROM drug_info_tbl WHERE drug_info_idx =
+        #{drug_info_idx} </delete>
+
+
+</mapper> 

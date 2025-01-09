@@ -42,8 +42,8 @@ public class PharServiceImpl implements PharService {
     }
 
     @Override
-    public int pharinfoDelete(int phar_idx) {
-        return pharMapper.pharinfoDelete(phar_idx);
+    public int getpharDelete(int phar_idx) {
+        return pharMapper.getpharDelete(phar_idx);
     }
 
     @Override

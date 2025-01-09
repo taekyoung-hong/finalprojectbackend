@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 반드시 mapper 위치로 설정해야 된다. -->
+<mapper namespace="com.ict.finalspringboot.domain.box_info.mapper.BoxMapper">
+
+	<select id="BoxinfoList" resultType="com.ict.finalspringboot.domain.box_info.vo.BoxVO"> select * from box_info order by box_idx asc </select>	
+	
+	<insert id="BoxinfoWrite" parameterType="BoxVO">
+	 insert into box_info (box_name, box_address,
+	box_long,box_lat) values(#{box_name},#{box_address},#{box_long},#{box_lat}) </insert>
+
+	<select id="getboxsDetail" parameterType="int" resultType="com.ict.finalspringboot.domain.box_info.vo.BoxVO"> select * from box_info where box_idx = #{box_idx} </select>
+	
+	<update id="BoxinfoUpdate" parameterType="BoxVO">
+    UPDATE box_info
+    SET 
+        box_name = #{box_name},
+        box_address = #{box_address},
+        box_lat = #{box_lat},
+        box_long = #{box_long}
+    WHERE box_idx = #{box_idx};
+</update>
+
+ <delete id="BoxinfoDelete" parameterType="int"> 
+    DELETE FROM box_info WHERE box_idx = #{box_idx} 
+    </delete>
+
+
+
+</mapper> 
